@@ -766,6 +766,38 @@
         : (window.siteConfig?.seo || {});
       if (!seo || Object.keys(seo).length === 0) return;
 
+      const personal = this.config.personal || window.siteConfig?.personal || {};
+      const contact = this.config.contact || window.siteConfig?.contact || {};
+      const social = this.config.social || window.siteConfig?.social || {};
+      const images = this.config.images || window.siteConfig?.images || {};
+
+      var head = document.head;
+
+      // Helper: find or create a <meta> tag
+      function setMeta(attr, attrValue, content) {
+        if (!content) return;
+        var sel = 'meta[' + attr + '="' + attrValue + '"]';
+        var el = head.querySelector(sel);
+        if (!el) {
+          el = document.createElement('meta');
+          el.setAttribute(attr, attrValue);
+          head.appendChild(el);
+        }
+        el.setAttribute('content', content);
+      }
+
+      // Helper: find or create a <link> tag
+      function setLink(rel, href) {
+        if (!href) return;
+        var el = head.querySelector('link[rel="' + rel + '"]');
+        if (!el) {
+          el = document.createElement('link');
+          el.setAttribute('rel', rel);
+          head.appendChild(el);
+        }
+        el.setAttribute('href', href);
+      }
+
       // Update title
       if (seo.siteTitle) {
         const titleEl = document.querySelector('title');
@@ -775,13 +807,79 @@
         }
       }
 
-      // Update meta description
+      // Meta description
       if (seo.siteDescription) {
-        let metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) {
-          metaDesc.content = seo.siteDescription;
-        }
+        setMeta('name', 'description', seo.siteDescription);
       }
+
+      // Meta keywords
+      if (seo.keywords) {
+        setMeta('name', 'keywords', seo.keywords);
+      }
+
+      // Canonical URL
+      setLink('canonical', window.location.href.split('?')[0].split('#')[0]);
+
+      // Open Graph
+      var pageTitle = document.title || seo.siteTitle || '';
+      setMeta('property', 'og:type', 'website');
+      setMeta('property', 'og:title', pageTitle);
+      setMeta('property', 'og:description', seo.siteDescription);
+      setMeta('property', 'og:url', window.location.href.split('?')[0].split('#')[0]);
+      setMeta('property', 'og:site_name', seo.siteTitle);
+      var ogImg = seo.ogImage || images.aboutImage || '';
+      if (ogImg) {
+        // Make relative URLs absolute
+        if (ogImg && ogImg.indexOf('http') !== 0) {
+          ogImg = window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + ogImg;
+        }
+        setMeta('property', 'og:image', ogImg);
+      }
+
+      // Twitter Card
+      setMeta('name', 'twitter:card', ogImg ? 'summary_large_image' : 'summary');
+      setMeta('name', 'twitter:title', pageTitle);
+      setMeta('name', 'twitter:description', seo.siteDescription);
+      if (ogImg) {
+        setMeta('name', 'twitter:image', ogImg);
+      }
+      if (social.twitter) {
+        // Extract handle from URL or use as-is
+        var twHandle = social.twitter;
+        var twMatch = twHandle.match(/(?:twitter\.com|x\.com)\/(@?[\w]+)/);
+        if (twMatch) twHandle = twMatch[1];
+        if (twHandle.indexOf('@') !== 0) twHandle = '@' + twHandle;
+        setMeta('name', 'twitter:site', twHandle);
+      }
+
+      // JSON-LD Person structured data
+      var jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: personal.name || '',
+        jobTitle: personal.title || '',
+        description: seo.siteDescription || personal.shortBio || '',
+        url: (contact.website || window.location.origin)
+      };
+      if (personal.location) jsonLd.address = { '@type': 'PostalAddress', addressLocality: personal.location };
+      if (contact.email) jsonLd.email = contact.email;
+      if (contact.phone) jsonLd.telephone = contact.phone;
+      if (ogImg) jsonLd.image = ogImg;
+
+      // Collect social profile URLs
+      var sameAs = [];
+      for (var key in social) {
+        if (social[key]) sameAs.push(social[key]);
+      }
+      if (sameAs.length) jsonLd.sameAs = sameAs;
+
+      // Remove existing JSON-LD if any, then inject
+      var existing = head.querySelector('script[type="application/ld+json"]');
+      if (existing) existing.remove();
+      var script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(jsonLd);
+      head.appendChild(script);
     },
 
     // ==========================================
