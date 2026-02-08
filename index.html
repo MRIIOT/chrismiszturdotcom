@@ -366,24 +366,26 @@
   <script src="assets/js/custom.js"></script>
 
   <!-- QR Code Library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     (function() {
       var btn = document.getElementById('qrCodeBtn');
       var overlay = document.getElementById('qrModalOverlay');
       var closeBtn = document.getElementById('qrModalClose');
-      var canvas = document.getElementById('qrCodeCanvas');
+      var container = document.getElementById('qrCodeCanvas');
       var generated = false;
 
       function generateQR() {
         if (generated) return;
-        QRCode.toCanvas(canvas, window.location.href, {
+        new QRCode(container, {
+          text: window.location.href,
           width: 220,
-          margin: 2,
-          color: { dark: '#000000', light: '#ffffff' }
-        }, function(err) {
-          if (!err) generated = true;
+          height: 220,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.H
         });
+        generated = true;
       }
 
       btn.addEventListener('click', function() {
