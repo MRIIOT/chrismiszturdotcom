@@ -62,11 +62,19 @@
       font-size: 18px;
     }
 
-    /* QR Code Button */
-    .qr-code-btn {
+    /* Bottom-left action buttons container */
+    .bottom-left-actions {
       position: fixed;
       bottom: 20px;
       left: 20px;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      z-index: 9999;
+    }
+
+    /* QR Code Button */
+    .qr-code-btn {
       background: var(--accent-color);
       opacity: 0.5;
       color: #000;
@@ -75,18 +83,42 @@
       border-radius: 50%;
       font-size: 20px;
       font-weight: 500;
-      z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, opacity 0.3s ease;
       cursor: pointer;
       border: none;
       text-decoration: none;
     }
     .qr-code-btn:hover {
       transform: translateY(-3px);
+      opacity: 0.8;
+    }
+
+    /* Resume PDF Button */
+    .resume-pdf-btn {
+      background: var(--accent-color);
+      opacity: 0.5;
+      color: #000;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 20px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+    }
+    .resume-pdf-btn:hover {
+      transform: translateY(-3px);
+      opacity: 0.8;
     }
 
     /* QR Code Modal */
@@ -341,10 +373,15 @@
     </div>
   </footer>
 
-  <!-- QR Code Button -->
-  <button class="qr-code-btn" id="qrCodeBtn" title="Share via QR Code">
-    <i class="fas fa-qrcode"></i>
-  </button>
+  <!-- Bottom-left Action Buttons -->
+  <div class="bottom-left-actions">
+    <button class="qr-code-btn" id="qrCodeBtn" title="Share via QR Code">
+      <i class="fas fa-qrcode"></i>
+    </button>
+    <button class="resume-pdf-btn" id="resumePdfBtn" title="Download Resume PDF">
+      <i class="fas fa-file-pdf"></i>
+    </button>
+  </div>
 
   <!-- QR Code Modal -->
   <div class="qr-modal-overlay" id="qrModalOverlay">
@@ -374,6 +411,9 @@
 
   <!-- QR Code Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- jsPDF Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
   <script>
     (function() {
       var btn = document.getElementById('qrCodeBtn');
@@ -411,6 +451,208 @@
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') overlay.classList.remove('active');
       });
+    })();
+  </script>
+
+  <!-- Resume PDF Generator -->
+  <script>
+    (function() {
+      var btn = document.getElementById('resumePdfBtn');
+
+      function getConfig() {
+        try {
+          var stored = localStorage.getItem('siteConfig');
+          if (stored) return JSON.parse(stored);
+        } catch (e) {}
+        if (window.siteConfig) return window.siteConfig;
+        return null;
+      }
+
+      function generateResumePDF() {
+        var config = getConfig();
+        if (!config) { alert('Site configuration not found.'); return; }
+        var jsPDF = window.jspdf.jsPDF;
+        var doc = new jsPDF({ unit: 'mm', format: 'a4' });
+        var pageW = 210;
+        var margin = 18;
+        var contentW = pageW - margin * 2;
+        var y = 18;
+        var lineH = 5.5;
+
+        // Colors
+        var accent = [140, 120, 90];
+        var dark = [30, 30, 30];
+        var muted = [120, 120, 120];
+
+        function checkPage(needed) {
+          if (y + needed > 280) { doc.addPage(); y = 18; }
+        }
+
+        function drawSectionLine() {
+          doc.setDrawColor(accent[0], accent[1], accent[2]);
+          doc.setLineWidth(0.4);
+          doc.line(margin, y, pageW - margin, y);
+          y += 4;
+        }
+
+        function sectionHeading(text) {
+          checkPage(14);
+          drawSectionLine();
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(11);
+          doc.setTextColor(accent[0], accent[1], accent[2]);
+          doc.text(text.toUpperCase(), margin, y);
+          y += 7;
+        }
+
+        function bodyText(text, opts) {
+          opts = opts || {};
+          doc.setFont('helvetica', opts.bold ? 'bold' : 'normal');
+          doc.setFontSize(opts.size || 9.5);
+          doc.setTextColor(opts.color ? opts.color[0] : dark[0], opts.color ? opts.color[1] : dark[1], opts.color ? opts.color[2] : dark[2]);
+          var lines = doc.splitTextToSize(text, opts.width || contentW);
+          checkPage(lines.length * lineH + 2);
+          doc.text(lines, opts.x || margin, y);
+          y += lines.length * lineH;
+        }
+
+        var p = config.personal || {};
+        var c = config.contact || {};
+
+        // --- HEADER ---
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(24);
+        doc.setTextColor(dark[0], dark[1], dark[2]);
+        doc.text(p.name || 'Name', margin, y);
+        y += 8;
+
+        if (p.title) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(13);
+          doc.setTextColor(accent[0], accent[1], accent[2]);
+          doc.text(p.title, margin, y);
+          y += 6;
+        }
+        if (p.tagline) {
+          doc.setFont('helvetica', 'italic');
+          doc.setFontSize(10);
+          doc.setTextColor(muted[0], muted[1], muted[2]);
+          doc.text(p.tagline, margin, y);
+          y += 6;
+        }
+        y += 2;
+
+        // --- CONTACT ---
+        var contactParts = [];
+        if (c.email) contactParts.push(c.email);
+        if (c.phone) contactParts.push(c.phone);
+        if (c.website) contactParts.push(c.website);
+        if (p.location) contactParts.push(p.location);
+
+        if (contactParts.length) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(9);
+          doc.setTextColor(muted[0], muted[1], muted[2]);
+          doc.text(contactParts.join('  |  '), margin, y);
+          y += 6;
+        }
+
+        // --- SOCIAL ---
+        var social = config.social || {};
+        var socialParts = [];
+        Object.keys(social).forEach(function(key) {
+          if (social[key]) socialParts.push(key.charAt(0).toUpperCase() + key.slice(1) + ': ' + social[key]);
+        });
+        if (socialParts.length) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(8);
+          doc.setTextColor(muted[0], muted[1], muted[2]);
+          var socialLines = doc.splitTextToSize(socialParts.join('  |  '), contentW);
+          doc.text(socialLines, margin, y);
+          y += socialLines.length * 4 + 2;
+        }
+
+        y += 2;
+
+        // --- BIO ---
+        if (p.shortBio) {
+          sectionHeading('About');
+          bodyText(p.shortBio);
+          y += 3;
+        }
+
+        // --- EXPERIENCE / TIMELINE ---
+        var timeline = config.timeline;
+        if (timeline && timeline.length) {
+          sectionHeading('Experience');
+          timeline.forEach(function(item) {
+            checkPage(18);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.setTextColor(dark[0], dark[1], dark[2]);
+            doc.text(item.title || '', margin, y);
+
+            if (item.period) {
+              doc.setFont('helvetica', 'normal');
+              doc.setFontSize(9);
+              doc.setTextColor(muted[0], muted[1], muted[2]);
+              doc.text(item.period, pageW - margin, y, { align: 'right' });
+            }
+            y += lineH;
+
+            if (item.description) {
+              bodyText(item.description, { color: muted });
+            }
+            y += 3;
+          });
+        }
+
+        // --- SERVICES / SKILLS ---
+        var services = config.services;
+        if (services && services.length) {
+          sectionHeading('Services & Skills');
+          services.forEach(function(svc) {
+            checkPage(12);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9.5);
+            doc.setTextColor(dark[0], dark[1], dark[2]);
+            doc.text(svc.title || '', margin, y);
+            y += lineH;
+
+            if (svc.shortDesc) {
+              bodyText(svc.shortDesc, { color: muted, size: 9 });
+            }
+            y += 2;
+          });
+        }
+
+        // --- PHILOSOPHY / VALUES ---
+        var philosophy = config.philosophy;
+        if (philosophy && philosophy.length) {
+          sectionHeading('Values & Philosophy');
+          philosophy.forEach(function(val) {
+            checkPage(12);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9.5);
+            doc.setTextColor(dark[0], dark[1], dark[2]);
+            doc.text(val.title || '', margin, y);
+            y += lineH;
+
+            if (val.description) {
+              bodyText(val.description, { color: muted, size: 9 });
+            }
+            y += 2;
+          });
+        }
+
+        // --- DOWNLOAD ---
+        var firstName = (p.firstName || 'Resume').replace(/\s+/g, '_');
+        var lastName = (p.lastName || '').replace(/\s+/g, '_');
+        var filename = lastName ? firstName + '_' + lastName + '_Resume.pdf' : firstName + '_Resume.pdf';
+        doc.save(filename);
+      }
+
+      btn.addEventListener('click', generateResumePDF);
     })();
   </script>
 </body>
