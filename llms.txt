@@ -1,0 +1,24 @@
+# Chris Misztur
+
+> Chris Misztur is the President & Founder of Mr. IIoT, specializing in building Smart Factories, both real and virtual. With over two decades of experience, he empowers businesses to thrive through digital transformation, innovative IoT solutions, and Industry 4.0 expertise.
+
+Based in the Greater Chicago Area, Chris brings 20+ years of experience integrating business systems into manufacturing processes. He is an expert in digital Industry 4.0 transformation, industrial automation, and developing solutions like the SHARC IoT Adapter and DIME Software Suite, emphasizing continuous learning and practical application of innovative technologies.
+
+## Pages
+*   [Home](https://chrismisztur.com/): Overview of Chris Misztur's expertise, services, and client testimonials.
+*   [About](https://chrismisztur.com/about.html): Detailed biography, professional timeline, and core values.
+*   [Services](https://chrismisztur.com/services.html): Comprehensive list of digital transformation, IIoT, and automation services.
+*   [Solutions](https://chrismisztur.com/solutions.html): Specific industry solutions for discrete manufacturing, metal fabrication, automotive, food & beverage, packaging, OEMs, aerospace, and defense.
+*   [Process](https://chrismisztur.com/process.html): Explanation of the 5C methodology (Connect, Collect, Combine, Compute, Convey) and engagement process.
+*   [Contact](https://chrismisztur.com/contact.html): Contact information and options to get in touch.
+*   [Free IIoT Assessment](https://chrismisztur.com/audit.html): Offer for a complimentary 30-minute consultation to evaluate digital transformation readiness.
+
+## Contact
+*   Email: chris@mriiot.com
+*   Website: https://mriiot.com
+*   Schedule a Call: https://calendly.com/cmisztur-mriiot/30min
+
+## Social
+*   LinkedIn: https://linkedin.com/in/chrismisztur
+*   GitHub: https://github.com/MrIIoT
+*   YouTube: https://www.youtube.com/@MrIIoT
