@@ -413,7 +413,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <!-- jsPDF Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
   <script>
     (function() {
       var btn = document.getElementById('qrCodeBtn');
@@ -471,7 +471,8 @@
       function generateResumePDF() {
         var config = getConfig();
         if (!config) { alert('Site configuration not found.'); return; }
-        var jsPDF = window.jspdf.jsPDF;
+        var jsPDF = window.jspdf && window.jspdf.jsPDF;
+        if (!jsPDF) { alert('PDF library failed to load. Please refresh and try again.'); return; }
         var doc = new jsPDF({ unit: 'mm', format: 'a4' });
         var pageW = 210;
         var margin = 18;
