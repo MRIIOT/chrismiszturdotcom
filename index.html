@@ -60,6 +60,84 @@
     .customize-banner i {
       font-size: 18px;
     }
+
+    /* QR Code Button */
+    .qr-code-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: var(--accent-color);
+      color: #000;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 20px;
+      font-weight: 500;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+    }
+    .qr-code-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* QR Code Modal */
+    .qr-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-modal-overlay.active {
+      display: flex;
+    }
+    .qr-modal {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      max-width: 320px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .qr-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+      line-height: 1;
+    }
+    .qr-modal h4 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      color: #000;
+    }
+    .qr-modal p {
+      margin: 0 0 20px 0;
+      font-size: 13px;
+      color: #666;
+    }
+    .qr-modal canvas {
+      display: block;
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
@@ -256,6 +334,21 @@
     </div>
   </footer>
 
+  <!-- QR Code Button -->
+  <button class="qr-code-btn" id="qrCodeBtn" title="Share via QR Code">
+    <i class="fas fa-qrcode"></i>
+  </button>
+
+  <!-- QR Code Modal -->
+  <div class="qr-modal-overlay" id="qrModalOverlay">
+    <div class="qr-modal">
+      <button class="qr-modal-close" id="qrModalClose">&times;</button>
+      <h4>Scan to Connect</h4>
+      <p>Point your camera to save my info</p>
+      <div id="qrCodeCanvas"></div>
+    </div>
+  </div>
+
   <!-- Customize Banner -->
   <a href="questionnaire.html" class="customize-banner">
     <i class="fas fa-magic"></i>
@@ -271,5 +364,45 @@
   <script src="assets/js/mgc-grid.js"></script>
   <script src="assets/js/template-engine.js"></script>
   <script src="assets/js/custom.js"></script>
+
+  <!-- QR Code Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script>
+    (function() {
+      var btn = document.getElementById('qrCodeBtn');
+      var overlay = document.getElementById('qrModalOverlay');
+      var closeBtn = document.getElementById('qrModalClose');
+      var canvas = document.getElementById('qrCodeCanvas');
+      var generated = false;
+
+      function generateQR() {
+        if (generated) return;
+        QRCode.toCanvas(canvas, window.location.href, {
+          width: 220,
+          margin: 2,
+          color: { dark: '#000000', light: '#ffffff' }
+        }, function(err) {
+          if (!err) generated = true;
+        });
+      }
+
+      btn.addEventListener('click', function() {
+        overlay.classList.add('active');
+        generateQR();
+      });
+
+      closeBtn.addEventListener('click', function() {
+        overlay.classList.remove('active');
+      });
+
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) overlay.classList.remove('active');
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') overlay.classList.remove('active');
+      });
+    })();
+  </script>
 </body>
 </html>
