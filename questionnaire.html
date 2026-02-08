@@ -787,25 +787,38 @@
         </a>
       </div>
 
-      <!-- GitHub Pages Deployment Info -->
+      <!-- Permanent Configuration Deployment Info -->
       <div class="info-banner" id="deploymentInfo">
         <div class="info-banner-header" onclick="toggleDeploymentInfo()">
           <div class="info-banner-title">
-            <i class="fab fa-github"></i>
-            <span>GitHub Pages Deployment</span>
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>Permanent Configuration Deployment</span>
           </div>
           <i class="fas fa-chevron-down info-toggle"></i>
         </div>
         <div class="info-banner-content">
-          <p><strong>How to make your customizations permanent on GitHub Pages:</strong></p>
+          <p><strong>How to make your customizations permanent:</strong></p>
+
+          <h4 style="margin-top: 20px; margin-bottom: 10px; color: var(--accent);"><i class="fas fa-star"></i> Option 1: Upload via RebrandMyself Dashboard (Recommended)</h4>
           <ol>
-            <li>Fill out the questionnaire and click <strong>"Save & Preview"</strong> to test locally</li>
+            <li>Fill out the questionnaire and click <strong>"Save"</strong> to preview your changes locally</li>
+            <li>When you're happy with your changes, click <strong>"Export"</strong> to download <code>site-config.json</code></li>
+            <li>Visit <a href="https://rebrandmyself.net/dashboard" target="_blank" style="color: var(--accent);">rebrandmyself.net/dashboard</a></li>
+            <li>Upload your <code>site-config.json</code> file there and your site will be updated automatically</li>
+          </ol>
+
+          <hr style="border-color: rgba(100, 150, 255, 0.2); margin: 15px 0;">
+
+          <h4 style="margin-bottom: 10px;"><i class="fab fa-github"></i> Option 2: Manual GitHub Deployment</h4>
+          <ol>
+            <li>Fill out the questionnaire and click <strong>"Save"</strong> to preview your changes locally</li>
             <li>When you're happy with your changes, click <strong>"Export"</strong> to download <code>site-config.json</code></li>
             <li>Replace the <code>site-config.json</code> file in your GitHub repository with the downloaded file</li>
             <li>Commit and push the changes to your repository</li>
             <li>GitHub Pages will automatically serve your customized site!</li>
           </ol>
-          <p class="info-note"><i class="fas fa-info-circle"></i> Local preview uses browser storage. For persistent hosting on GitHub Pages, you must commit the exported JSON file to your repo.</p>
+
+          <p class="info-note"><i class="fas fa-info-circle"></i> Local preview uses browser storage. For persistent deployment, use one of the options above to save your configuration permanently.</p>
           <hr style="border-color: rgba(100, 150, 255, 0.2); margin: 15px 0;">
           <p><strong>To disable customization after deployment:</strong></p>
           <p style="color: var(--text-muted); font-size: 13px;">Create an empty file named <code>customization.disable</code> in your repository root. This will change the button to "Rebrand Myself" linking to RebrandMyself.net. To re-enable customization, simply delete the file.</p>
