@@ -1,24 +1,25 @@
 # Chris Misztur
 
-> Chris Misztur is the President & Founder of Mr. IIoT, specializing in building Smart Factories, both real and virtual. With over two decades of experience, he empowers businesses to thrive through digital transformation, innovative IoT solutions, and Industry 4.0 expertise.
+> Chris Misztur is the President & Founder of Mr. IIoT, specializing in building Smart Factories, both real and virtual. With over two decades of experience, he integrates business systems into manufacturing processes, focusing on continuous learning and innovative technology application for digital transformation.
 
-Based in the Greater Chicago Area, Chris brings 20+ years of experience integrating business systems into manufacturing processes. He is an expert in digital Industry 4.0 transformation, industrial automation, and developing solutions like the SHARC IoT Adapter and DIME Software Suite, emphasizing continuous learning and practical application of innovative technologies.
+Chris Misztur brings over 20 years of experience in industrial digital transformation from the Greater Chicago Area. As President & Founder of Mr. IIoT, he leads initiatives to build Smart Factories, leveraging his proprietary "5C" closed-loop feedback approach and the SHARC IoT adapter to revolutionize industrial processes. He is committed to empowering businesses to thrive in today's technology-driven environment.
 
 ## Pages
-*   [Home](https://chrismisztur.com/): Overview of Chris Misztur's expertise, services, and client testimonials.
-*   [About](https://chrismisztur.com/about.html): Detailed biography, professional timeline, and core values.
-*   [Services](https://chrismisztur.com/services.html): Comprehensive list of digital transformation, IIoT, and automation services.
-*   [Solutions](https://chrismisztur.com/solutions.html): Specific industry solutions for discrete manufacturing, metal fabrication, automotive, food & beverage, packaging, OEMs, aerospace, and defense.
-*   [Process](https://chrismisztur.com/process.html): Explanation of the 5C methodology (Connect, Collect, Combine, Compute, Convey) and engagement process.
-*   [Contact](https://chrismisztur.com/contact.html): Contact information and options to get in touch.
-*   [Free IIoT Assessment](https://chrismisztur.com/audit.html): Offer for a complimentary 30-minute consultation to evaluate digital transformation readiness.
+[Home](https://chrismisztur.com/): Home page with hero, services overview, testimonials.
+[About](https://chrismisztur.com/about.html): About page with bio, timeline, values.
+[Services](https://chrismisztur.com/services.html): Detailed services offered.
+[Solutions](https://chrismisztur.com/solutions.html): Industries and solutions served.
+[Process](https://chrismisztur.com/process.html): How they work / methodology.
+[Contact](https://chrismisztur.com/contact.html): Contact information and booking.
+[Free IIoT Assessment](https://chrismisztur.com/audit.html): Free consultation / discovery call.
 
 ## Contact
-*   Email: chris@mriiot.com
-*   Website: https://mriiot.com
-*   Schedule a Call: https://calendly.com/cmisztur-mriiot/30min
+Email: chris@mriiot.com
+Website: https://mriiot.com
+Calendly: https://calendly.com/cmisztur-mriiot/30min
+Response Time: Usually within 24 hours
 
 ## Social
-*   LinkedIn: https://linkedin.com/in/chrismisztur
-*   GitHub: https://github.com/MrIIoT
-*   YouTube: https://www.youtube.com/@MrIIoT
+LinkedIn: https://linkedin.com/in/chrismisztur
+GitHub: https://github.com/MrIIoT
+YouTube: https://www.youtube.com/@MrIIoT
