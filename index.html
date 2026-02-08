@@ -460,6 +460,11 @@
       var btn = document.getElementById('resumePdfBtn');
 
       function getConfig() {
+        // Use the same resolved config the template engine uses
+        if (window.TemplateEngine && window.TemplateEngine.config) {
+          return window.TemplateEngine.config;
+        }
+        // Fallback: try localStorage, then default
         try {
           var stored = localStorage.getItem('siteConfig');
           if (stored) return JSON.parse(stored);
@@ -468,17 +473,51 @@
         return null;
       }
 
+      function loadImageAsDataURL(url) {
+        return new Promise(function(resolve) {
+          if (!url) { resolve(null); return; }
+          var img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = function() {
+            try {
+              var canvas = document.createElement('canvas');
+              canvas.width = img.naturalWidth;
+              canvas.height = img.naturalHeight;
+              canvas.getContext('2d').drawImage(img, 0, 0);
+              resolve({ dataURL: canvas.toDataURL('image/jpeg', 0.85), w: img.naturalWidth, h: img.naturalHeight });
+            } catch (e) { resolve(null); }
+          };
+          img.onerror = function() { resolve(null); };
+          img.src = url;
+        });
+      }
+
       function generateResumePDF() {
         var config = getConfig();
         if (!config) { alert('Site configuration not found.'); return; }
         var jsPDF = window.jspdf && window.jspdf.jsPDF;
         if (!jsPDF) { alert('PDF library failed to load. Please refresh and try again.'); return; }
+
+        var images = config.images || {};
+        var aboutImageUrl = images.aboutImage || '';
+
+        loadImageAsDataURL(aboutImageUrl).then(function(imgData) {
+          buildPDF(config, jsPDF, imgData);
+        });
+      }
+
+      function buildPDF(config, jsPDF, photoData) {
         var doc = new jsPDF({ unit: 'mm', format: 'a4' });
         var pageW = 210;
         var margin = 18;
         var contentW = pageW - margin * 2;
         var y = 18;
         var lineH = 5.5;
+
+        // Photo dimensions for header
+        var photoSize = 32; // mm square
+        var photoX = pageW - margin - photoSize;
+        var headerTextW = contentW - (photoData ? photoSize + 6 : 0);
 
         // Colors
         var accent = [140, 120, 90];
@@ -520,26 +559,43 @@
         var p = config.personal || {};
         var c = config.contact || {};
 
+        // --- PHOTO (top-right) ---
+        if (photoData) {
+          var aspect = photoData.w / photoData.h;
+          var imgW = photoSize;
+          var imgH = photoSize / aspect;
+          if (imgH > photoSize) { imgH = photoSize; imgW = photoSize * aspect; }
+          var imgX = photoX + (photoSize - imgW) / 2;
+          doc.addImage(photoData.dataURL, 'JPEG', imgX, y - 2, imgW, imgH);
+        }
+
         // --- HEADER ---
+        var headerStartY = y;
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(24);
         doc.setTextColor(dark[0], dark[1], dark[2]);
-        doc.text(p.name || 'Name', margin, y);
+        doc.text(p.name || 'Name', margin, y, { maxWidth: headerTextW });
         y += 8;
 
         if (p.title) {
           doc.setFont('helvetica', 'normal');
           doc.setFontSize(13);
           doc.setTextColor(accent[0], accent[1], accent[2]);
-          doc.text(p.title, margin, y);
+          doc.text(p.title, margin, y, { maxWidth: headerTextW });
           y += 6;
         }
         if (p.tagline) {
           doc.setFont('helvetica', 'italic');
           doc.setFontSize(10);
           doc.setTextColor(muted[0], muted[1], muted[2]);
-          doc.text(p.tagline, margin, y);
+          doc.text(p.tagline, margin, y, { maxWidth: headerTextW });
           y += 6;
+        }
+
+        // Ensure y is past the photo if the text was shorter
+        if (photoData) {
+          var photoBottom = headerStartY - 2 + photoSize + 2;
+          if (y < photoBottom) y = photoBottom;
         }
         y += 2;
 
