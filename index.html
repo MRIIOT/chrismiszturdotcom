@@ -121,6 +121,172 @@
       opacity: 0.8;
     }
 
+    /* AI Chat Button */
+    .ai-chat-btn {
+      background: var(--accent-color);
+      opacity: 0.5;
+      color: #000;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 20px;
+      font-weight: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+    }
+    .ai-chat-btn:hover {
+      transform: translateY(-3px);
+      opacity: 0.8;
+    }
+
+    /* AI Chat Panel */
+    .ai-chat-panel {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      width: 360px;
+      height: 480px;
+      background: #1a1a2e;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      z-index: 10000;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .ai-chat-panel.active {
+      display: flex;
+    }
+    .ai-chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #16213e;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .ai-chat-header button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .ai-chat-header button:hover {
+      opacity: 1;
+    }
+    .ai-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ai-chat-bubble {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      word-wrap: break-word;
+    }
+    .ai-chat-bubble.assistant {
+      background: #16213e;
+      color: #e0e0e0;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .ai-chat-bubble.user {
+      background: var(--accent-color, #8c7a5a);
+      color: #000;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .ai-chat-typing {
+      display: none;
+      align-self: flex-start;
+      padding: 10px 14px;
+      background: #16213e;
+      border-radius: 12px;
+      border-bottom-left-radius: 4px;
+      font-size: 13px;
+      color: #888;
+    }
+    .ai-chat-typing.active {
+      display: block;
+    }
+    .ai-chat-typing span {
+      animation: typingDots 1.4s infinite;
+    }
+    .ai-chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .ai-chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingDots {
+      0%, 60%, 100% { opacity: 0.3; }
+      30% { opacity: 1; }
+    }
+    .ai-chat-input {
+      display: flex;
+      padding: 12px;
+      gap: 8px;
+      background: #0f0f23;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .ai-chat-input input {
+      flex: 1;
+      background: #1a1a2e;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+    }
+    .ai-chat-input input::placeholder {
+      color: #666;
+    }
+    .ai-chat-input input:focus {
+      border-color: var(--accent-color, #8c7a5a);
+    }
+    .ai-chat-input button {
+      background: var(--accent-color, #8c7a5a);
+      border: none;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+      font-size: 14px;
+      transition: opacity 0.2s;
+    }
+    .ai-chat-input button:hover {
+      opacity: 0.8;
+    }
+    @media (max-width: 480px) {
+      .ai-chat-panel {
+        width: calc(100% - 20px);
+        left: 10px;
+        bottom: 80px;
+        height: 420px;
+      }
+    }
+
     /* QR Code Modal */
     .qr-modal-overlay {
       display: none;
@@ -381,6 +547,26 @@
     <button class="resume-pdf-btn" id="resumePdfBtn" title="Download Resume PDF">
       <i class="fas fa-file-pdf"></i>
     </button>
+    <button class="ai-chat-btn" id="aiChatBtn" style="display:none" title="Ask AI">
+      <i class="fas fa-comments"></i>
+    </button>
+  </div>
+
+  <!-- AI Chat Panel -->
+  <div class="ai-chat-panel" id="aiChatPanel">
+    <div class="ai-chat-header">
+      <span>Chat with AI</span>
+      <button id="aiChatClose">&times;</button>
+    </div>
+    <div class="ai-chat-messages" id="aiChatMessages">
+      <div class="ai-chat-typing" id="aiChatTyping">
+        <span>.</span><span>.</span><span>.</span>
+      </div>
+    </div>
+    <div class="ai-chat-input">
+      <input type="text" id="aiChatInput" placeholder="Ask a question..." maxlength="1000">
+      <button id="aiChatSend"><i class="fas fa-paper-plane"></i></button>
+    </div>
   </div>
 
   <!-- QR Code Modal -->
@@ -757,6 +943,110 @@
       }
 
       btn.addEventListener('click', generateResumePDF);
+    })();
+  </script>
+
+  <!-- AI Chat Widget -->
+  <script>
+    (function() {
+      var API_BASE = 'https://rebrandmyself.net/api/experts';
+      var chatBtn = document.getElementById('aiChatBtn');
+      var panel = document.getElementById('aiChatPanel');
+      var closeBtn = document.getElementById('aiChatClose');
+      var messagesEl = document.getElementById('aiChatMessages');
+      var inputEl = document.getElementById('aiChatInput');
+      var sendBtn = document.getElementById('aiChatSend');
+      var typingEl = document.getElementById('aiChatTyping');
+      var expertData = null;
+      var history = [];
+      var sending = false;
+
+      // Determine site base URL
+      var siteBase = window.location.origin;
+      if (window.location.hostname.endsWith('.github.io')) {
+        var repo = window.location.pathname.split('/').filter(Boolean)[0];
+        if (repo) siteBase += '/' + repo;
+      }
+
+      // Check if expert exists for this site
+      fetch(API_BASE + '/check?site=' + encodeURIComponent(siteBase))
+        .then(function(res) {
+          if (!res.ok) throw new Error('Not found');
+          return res.json();
+        })
+        .then(function(data) {
+          expertData = data;
+          chatBtn.style.display = 'flex';
+        })
+        .catch(function() {
+          // No expert — don't show chat button
+        });
+
+      // Toggle panel
+      chatBtn.addEventListener('click', function() {
+        var isOpen = panel.classList.toggle('active');
+        if (isOpen && messagesEl.querySelectorAll('.ai-chat-bubble').length === 0) {
+          addBubble('assistant', 'Ask me anything about ' + (expertData ? expertData.name : 'this consultant') + '!');
+        }
+        if (isOpen) inputEl.focus();
+      });
+
+      closeBtn.addEventListener('click', function() {
+        panel.classList.remove('active');
+      });
+
+      function addBubble(role, text) {
+        var div = document.createElement('div');
+        div.className = 'ai-chat-bubble ' + role;
+        div.textContent = text;
+        messagesEl.insertBefore(div, typingEl);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      function sendMessage() {
+        var text = inputEl.value.trim();
+        if (!text || sending) return;
+
+        addBubble('user', text);
+        inputEl.value = '';
+        sending = true;
+        typingEl.classList.add('active');
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+
+        fetch(API_BASE + '/site-chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            site: siteBase,
+            message: text,
+            history: history.slice(-10)
+          })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          typingEl.classList.remove('active');
+          sending = false;
+          var reply = data.reply || data.error || 'Sorry, something went wrong.';
+          addBubble('assistant', reply);
+          history.push({ role: 'user', content: text });
+          history.push({ role: 'assistant', content: reply });
+        })
+        .catch(function() {
+          typingEl.classList.remove('active');
+          sending = false;
+          addBubble('assistant', 'Sorry, I could not connect. Please try again.');
+        });
+
+        // Track analytics
+        if (typeof window._rmAnalytics === 'function') {
+          window._rmAnalytics('ai_chat');
+        }
+      }
+
+      sendBtn.addEventListener('click', sendMessage);
+      inputEl.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') sendMessage();
+      });
     })();
   </script>
 </body>
