@@ -149,9 +149,9 @@
       return;
     }
 
-    // AI chat
+    // AI chat open
     if (target.id === 'aiChatBtn' || target.classList.contains('ai-chat-btn')) {
-      enqueue('ai_chat');
+      enqueue('ai_chat_open');
       return;
     }
 
