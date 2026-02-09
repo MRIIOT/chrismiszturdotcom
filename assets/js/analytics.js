@@ -149,6 +149,12 @@
       return;
     }
 
+    // AI chat
+    if (target.id === 'aiChatBtn' || target.classList.contains('ai-chat-btn')) {
+      enqueue('ai_chat');
+      return;
+    }
+
     var href = target.getAttribute('href') || '';
 
     // Book a call / audit
@@ -169,6 +175,11 @@
       return;
     }
   });
+
+  // --- Expose enqueue for other scripts (e.g. AI chat widget) ---
+  window._rmAnalytics = function(eventName, data) {
+    enqueue(eventName, data);
+  };
 
   // --- Flush on page leave ---
   document.addEventListener('visibilitychange', function() {
