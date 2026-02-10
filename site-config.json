@@ -138,7 +138,7 @@
       "icon": "fas fa-gem",
       "title": "AI/LLM Implementation",
       "shortDesc": "Bridge skill gaps and create repeatable workflows from tribal knowledge.",
-      "fullDesc": "We implement cloud and local AI models, including RAG systems that rely on your procedures and documentation in order to reduce overall operating costs.",
+      "fullDesc": "We implement cloud and local AI models tailored to your business. Our RAG systems connect directly to your SOPs, manuals, and internal docs — turning tribal knowledge into instant answers. Less time searching, fewer mistakes, lower operating costs.",
       "features": [
         "Local LLM Deployment",
         "RAG grounding",
