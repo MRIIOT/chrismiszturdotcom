@@ -133,6 +133,18 @@
         "Real-time analytics",
         "Neuromorphic learning"
       ]
+    },
+    {
+      "icon": "fas fa-gem",
+      "title": "AI/LLM Implementation",
+      "shortDesc": "Bridge skill gaps and create repeatable workflows from tribal knowledge.",
+      "fullDesc": "We implement cloud and local AI models, including RAG systems that rely on your procedures and documentation in order to reduce overall operating costs.",
+      "features": [
+        "Local LLM Deployment",
+        "RAG grounding",
+        "AI workflows",
+        "Operating cost reduction"
+      ]
     }
   ],
   "solutions": [
