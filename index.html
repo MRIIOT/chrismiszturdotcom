@@ -997,10 +997,16 @@
         panel.classList.remove('active');
       });
 
+      function linkify(text) {
+        // Escape HTML first to prevent XSS, then convert URLs to links
+        var escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        return escaped.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color:#c5a47e;text-decoration:underline;">$1</a>');
+      }
+
       function addBubble(role, text) {
         var div = document.createElement('div');
         div.className = 'ai-chat-bubble ' + role;
-        div.textContent = text;
+        div.innerHTML = linkify(text);
         messagesEl.insertBefore(div, typingEl);
         messagesEl.scrollTop = messagesEl.scrollHeight;
       }
