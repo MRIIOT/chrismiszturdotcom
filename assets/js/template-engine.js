@@ -23,24 +23,29 @@
     },
 
     loadConfig: async function() {
-      // Priority 1: Try to fetch site-config.json (for GitHub Pages persistence)
+      // Step 1: Fetch site-config.json and sync to localStorage if it changed
+      // This ensures new deployments are picked up, while questionnaire
+      // edits (saved to localStorage) are preserved between deployments.
       try {
         const response = await fetch('site-config.json?v=' + Date.now());
         if (response.ok) {
           const jsonConfig = await response.json();
-          // Use JSON config if it has valid structure (has personal and branding sections)
           if (jsonConfig && jsonConfig.personal && jsonConfig.branding) {
-            this.config = this.mergeWithDefaults(jsonConfig);
-            this.configSource = 'json';
-            console.log('Config loaded from site-config.json');
-            return;
+            const jsonStr = JSON.stringify(jsonConfig);
+            const lastSnapshot = localStorage.getItem('siteConfigJsonSnapshot');
+            if (jsonStr !== lastSnapshot) {
+              // site-config.json is new or changed — sync to localStorage
+              localStorage.setItem('siteConfig', jsonStr);
+              localStorage.setItem('siteConfigJsonSnapshot', jsonStr);
+              console.log('New site-config.json detected, synced to localStorage');
+            }
           }
         }
       } catch (e) {
-        console.log('No custom site-config.json found, checking localStorage...');
+        console.log('No site-config.json found, using localStorage...');
       }
 
-      // Priority 2: Try localStorage (for local preview/testing)
+      // Step 2: Always load from localStorage (contains either synced json or questionnaire edits)
       const savedConfig = localStorage.getItem('siteConfig');
       if (savedConfig) {
         try {
@@ -48,21 +53,17 @@
           this.config = this.mergeWithDefaults(parsed);
           this.configSource = 'localStorage';
           console.log('Config loaded from localStorage');
-          console.log('Services in config:', this.config.services?.length || 0);
-          console.log('Solutions in config:', this.config.solutions?.length || 0);
           return;
         } catch (e) {
           console.warn('Failed to parse saved config');
         }
       }
 
-      // Priority 3: Fall back to default config
+      // Step 3: Fall back to default config
       if (window.siteConfig) {
         this.config = JSON.parse(JSON.stringify(window.siteConfig));
         this.configSource = 'default';
         console.log('Using default config from config.js');
-        console.log('Services in config:', this.config.services?.length || 0);
-        console.log('Solutions in config:', this.config.solutions?.length || 0);
       } else {
         console.error('No config found! window.siteConfig is undefined');
         this.config = {};
