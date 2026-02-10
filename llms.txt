@@ -1,18 +1,18 @@
 # Chris Misztur
 
-> Chris Misztur is the President & Founder of Mr. IIoT, specializing in building Smart Factories, both real and virtual. With over two decades of experience, he empowers businesses to thrive through digital transformation, innovative IoT solutions, and Industry 4.0 expertise.
+> Chris Misztur is the President & Founder of Mr. IIoT, specializing in building Smart Factories, both real and virtual. With over 25 years of experience, he drives digital transformation in manufacturing by integrating business systems and applying innovative Industrial IoT (IIoT) solutions.
 
-Based in the Greater Chicago Area, Chris has 25+ years of experience integrating business systems into manufacturing processes. He is an expert in digital Industry 4.0 transformation, IIoT implementation, and developing custom solutions like the SHARC IoT Adapter and the DIME Software Suite.
+Based in the Greater Chicago Area, Chris brings 25+ years of experience in digital Industry 4.0 transformation, smart factory implementation, business system integration, and custom software/middleware development. He is the creator of the "5C" closed-loop feedback approach to IIoT and a patent holder in manufacturing technology.
 
 ## Pages
 
-https://chrismisztur.com: Home page featuring an overview of services, key solutions, and client testimonials.
-https://chrismisztur.com/about.html: Learn more about Chris Misztur, his professional journey, and core values.
-https://chrismisztur.com/services.html: Detailed descriptions of digital Industry 4.0, business system integration, industrial automation, and AI/LLM implementation services.
-https://chrismisztur.com/solutions.html: Explore specialized solutions for various industries including discrete manufacturing, automotive, food & beverage, and aerospace.
-https://chrismisztur.com/process.html: Understand the 5C methodology (Connect, Collect, Combine, Compute, Convey) and the four-step process for IIoT implementation.
-https://chrismisztur.com/contact.html: Contact information and options to schedule a meeting.
-https://chrismisztur.com/audit.html: Book a free IIoT assessment to evaluate digital transformation readiness and identify opportunities.
+https://chrismisztur.com/: Home page with hero, services overview, and testimonials.
+https://chrismisztur.com/about.html: About page featuring Chris's bio, professional timeline, and core values.
+https://chrismisztur.com/services.html: Detailed descriptions of services offered, including Digital Industry 4.0, Business System Integration, Industrial Automation, SHARC IoT Adapter, DIME Software Suite, and AI/LLM Implementation.
+https://chrismisztur.com/solutions.html: Industries and specific solutions served, such as Discrete Manufacturing, Metal Fabrication, Automotive Supply Chain, Food & Beverage, Packaging Operations, Industrial Equipment OEMs, Aerospace, and Defense.
+https://chrismisztur.com/process.html: Explanation of the methodology and process for client engagement, including Discovery, Design, Deploy, and Deliver stages.
+https://chrismisztur.com/contact.html: Contact information and options for booking a meeting.
+https://chrismisztur.com/audit.html: Information about a free IIoT assessment and discovery call.
 
 ## Contact
 
