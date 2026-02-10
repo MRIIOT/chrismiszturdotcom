@@ -961,6 +961,7 @@
       var expertData = null;
       var history = [];
       var sending = false;
+      var conversationId = null;
 
       // Determine site base URL
       var siteBase = window.location.origin;
@@ -1020,7 +1021,8 @@
           body: JSON.stringify({
             site: siteBase,
             message: text,
-            history: history.slice(-10)
+            history: history.slice(-10),
+            conversationId: conversationId
           })
         })
         .then(function(res) { return res.json(); })
@@ -1031,6 +1033,7 @@
           addBubble('assistant', reply);
           history.push({ role: 'user', content: text });
           history.push({ role: 'assistant', content: reply });
+          if (data.conversationId) conversationId = data.conversationId;
         })
         .catch(function() {
           typingEl.classList.remove('active');
