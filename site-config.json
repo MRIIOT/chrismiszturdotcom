@@ -41,7 +41,7 @@
   },
   "heroSlides": [
     {
-      "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80",
+      "image": "https://chrismisztur.com/images/chris_bond.png?w=1920&q=80",
       "subtitle": "Industrial IoT Expert",
       "title": "Building Smart Factories",
       "description": "Digitally transforming manufacturing through innovative IoT solutions and Industry 4.0 expertise.",
@@ -49,12 +49,12 @@
       "buttonLink": "contact.html"
     },
     {
-      "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1920&q=80",
+      "image": "https://chrismisztur.com/images/sharc1_nologo.png?w=1920&q=80",
       "subtitle": "The SHARC Advantage",
       "title": "Connect Your Factory",
       "description": "The last mile of your factory network and the first mile of your information network.",
       "buttonText": "Learn More",
-      "buttonLink": "services.html"
+      "buttonLink": "https://www.mriiot.com/sharc"
     },
     {
       "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
@@ -99,7 +99,7 @@
       ]
     },
     {
-      "icon": "fas fa-search",
+      "icon": "fas fa-cogs",
       "title": "Industrial Automation",
       "shortDesc": "Custom software and middleware to make your hardware run seamlessly.",
       "fullDesc": "We develop customized software, hardware, and middleware solutions tailored to your specific needs. Our middleware toolset connects diverse systems—from factory equipment to client databases—enabling devices like barcode scanners and printers to work together with your networks in real time.",
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "icon": "fas fa-search",
+      "icon": "fas fa-plug",
       "title": "SHARC IoT Adapter",
       "shortDesc": "Universal IoT sensor adapter with 5-minute installation that bridges existing machinery with the digital world.",
       "fullDesc": "The SHARC (Simple Hardware Adapter for Remote Communications) connects analog (0-10V, 4-20mA) and discrete (PNP, NPN) sensors using MQTT for data transmission. Powered via PoE or 24Vdc, it features 100 Mbit Ethernet, Wi-Fi, and Bluetooth connectivity. Integrates with custom Grafana dashboards for real-time and historical machine analytics. Compatible with MTConnect, OPC-UA, and SparkplugB standards.",
@@ -123,7 +123,7 @@
       ]
     },
     {
-      "icon": "fas fa-database",
+      "icon": "fas fa-code",
       "title": "DIME Software Suite",
       "shortDesc": "Enterprise industrial connectivity platform with 40+ protocol connectors and AI-powered analytics.",
       "fullDesc": "Data In Motion Enterprise (DIME) provides universal industrial connectivity with 40+ native protocol connectors including OPC-UA, Modbus, Ethernet/IP, MTConnect, and MQTT/SparkplugB. Features real-time streaming with millisecond latency, AI-generated configurations from natural language, Wireshark-like data visibility, and neuromorphic continuous learning for anomaly detection.",
@@ -285,7 +285,7 @@
   ],
   "philosophy": [
     {
-      "icon": "fas fa-search",
+      "icon": "fas fa-trophy",
       "title": "Partnership Approach",
       "description": "We work hand-in-hand with your organization's IT/OT personnel, not as outside consultants but as partners invested in your success."
     },
@@ -300,27 +300,27 @@
       "description": "Every recommendation is backed by data. We help you make fact-based decisions that are accurate and reliable."
     },
     {
-      "icon": "fas fa-search",
+      "icon": "fas fa-network-wired",
       "title": "Scalable Data Collection",
       "description": "Our solutions scale seamlessly as your operations grow, allowing you to manage increasing volumes of machine data without sacrificing performance or insights."
     },
     {
-      "icon": "fas fa-search",
+      "icon": "fas fa-database",
       "title": "Data Ownership",
       "description": "We empower you with full rights to your data, ensuring you have the autonomy and control needed to leverage insights effectively."
     },
     {
-      "icon": "fas fa-lightbulb",
+      "icon": "fas fa-code",
       "title": "Data Interpretation",
       "description": "Collecting machine data is just the first step; we transform raw information into actionable insights that enhance operational efficiency and drive innovation."
     },
     {
-      "icon": "fas fa-search",
+      "icon": "fas fa-check-circle",
       "title": "Data Standardization",
       "description": "We unify disparate data sources and ensure seamless integration across systems, enabling effective analysis through consistency and coherence."
     },
     {
-      "icon": "fas fa-search",
+      "icon": "fas fa-users",
       "title": "Visibility",
       "description": "Our analytics solutions provide comprehensive visibility into your machine data, allowing you to monitor performance, detect anomalies, and derive actionable insights."
     }
@@ -384,7 +384,7 @@
     "https://chrismisztur.com/images/simp_gabriel_viper.png?w=600&q=80"
   ],
   "images": {
-    "heroBackground": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80",
+    "heroBackground": "https://chrismisztur.com/images/chris_bond.png?w=1920&q=80",
     "aboutImage": "https://chrismisztur.com/images/chris_with_cncs.png?w=800&q=80",
     "parallaxImage1": "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=1920&q=80",
     "parallaxImage2": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80"
