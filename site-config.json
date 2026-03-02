@@ -3,6 +3,7 @@
     "name": "Chris Misztur",
     "firstName": "Chris",
     "lastName": "Misztur",
+    "profileType": "person",
     "title": "President & Founder, Mr. IIoT",
     "tagline": "We build Smart Factories. Real and Virtual.",
     "shortBio": "With two decades of experience integrating business systems into manufacturing processes at a major automotive supplier, I combine technical expertise with a keen ability to identify inefficiencies within systems. My approach emphasizes continuous learning and practical application of innovative technologies.",
@@ -71,6 +72,14 @@
       "description": "Empowering manufacturers to make fact-based decisions with real-time data insights.",
       "buttonText": "About Me",
       "buttonLink": "about.html"
+    },
+    {
+      "image": "https://chrismisztur.com/images/i3xdb_image.png?w=1920&q=80",
+      "subtitle": "Your database, as an i3X API",
+      "title": "i3X Implementation",
+      "description": "Connect to any SQL database. Auto-generate an i3X context model. Serve a standards-compliant REST API.",
+      "buttonText": "Explore i3xdb",
+      "buttonLink": "https://i3xdb.com"
     }
   ],
   "services": [
