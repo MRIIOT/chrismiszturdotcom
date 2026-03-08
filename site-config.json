@@ -74,12 +74,12 @@
       "buttonLink": "about.html"
     },
     {
-      "image": "https://chrismisztur.com/images/i3xdb_image.png?w=1920&q=80",
-      "subtitle": "Your database, as an i3X API",
+      "image": "https://chrismisztur.com/images/i3xglass_image.png?w=1920&q=80",
+      "subtitle": "Your data, as an i3X API",
       "title": "i3X Implementation",
-      "description": "Connect to any SQL database. Auto-generate an i3X context model. Serve a standards-compliant REST API.",
-      "buttonText": "Explore i3xdb",
-      "buttonLink": "https://i3xdb.com"
+      "description": "Connect any data source. Serve a standards-compliant REST API. Visualize, aggregate, and query with AI.",
+      "buttonText": "Explore i3x.net",
+      "buttonLink": "https://i3x.net"
     }
   ],
   "services": [
