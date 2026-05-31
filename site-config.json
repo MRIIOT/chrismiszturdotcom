@@ -80,6 +80,14 @@
       "description": "Connect any data source. Serve a standards-compliant REST API. Visualize, aggregate, and query with AI.",
       "buttonText": "Explore i3x.net",
       "buttonLink": "https://i3x.net"
+    },
+    {
+      "image": "https://chrismisztur.com/images/agentic_support.png?w=1920&q=80",
+      "subtitle": "Agentic Tech Support for Machine OEMs",
+      "title": "AI Support Agents",
+      "description": "White-label AI that turns manuals, drawings, and past tickets into instant, cited answers - under your brand.",
+      "buttonText": "Explore Tracebook",
+      "buttonLink": "https://tracebook.ai"
     }
   ],
   "services": [
