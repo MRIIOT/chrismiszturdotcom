@@ -778,12 +778,28 @@
         calendlyEmbed.style.display = 'block';
         auditFormContainer.style.display = 'none';
 
-        // Set the Calendly URL
+        // Set the Calendly URL, THEN load widget.js. Loading the script only after the
+        // data-url is set makes initialization deterministic and avoids the intermittent
+        // "Calendly: Widget URL not set" error caused by the async script's auto-scan
+        // racing this attribute assignment.
         const calendlyWidget = calendlyEmbed.querySelector('.calendly-inline-widget');
         if (calendlyWidget) {
           calendlyWidget.setAttribute('data-url', calendlyUrl);
+          this.loadCalendlyWidget();
         }
       }
+    },
+
+    // Inject Calendly's widget.js once. By the time this runs, every
+    // .calendly-inline-widget already has its data-url set, so Calendly's
+    // auto-scan initializes correctly with no race.
+    loadCalendlyWidget() {
+      if (document.querySelector('script[data-calendly-widget]')) return;
+      const script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      script.setAttribute('data-calendly-widget', 'true');
+      document.body.appendChild(script);
     },
 
     // ==========================================
