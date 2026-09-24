@@ -88,6 +88,16 @@
       "description": "White-label AI that turns manuals, drawings, and past tickets into instant, cited answers - under your brand.",
       "buttonText": "Explore Tracebook",
       "buttonLink": "https://tracebook.ai"
+    },
+    {
+      "image": "https://chrismisztur.com/images/iqthread-factory-poster.webp",
+      "video": "https://chrismisztur.com/images/iqthread-factory.mp4",
+      "delay": 16000,
+      "subtitle": "AI Factory Intelligence for Manufacturers",
+      "title": "Factory Intelligence, Coordinated",
+      "description": "Maintenance, production, machine data and your factory's knowledge in one system, with AI to investigate and act.",
+      "buttonText": "Explore IQ Thread",
+      "buttonLink": "https://iqthread.app"
     }
   ],
   "services": [

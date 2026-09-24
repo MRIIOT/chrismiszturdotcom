@@ -312,9 +312,33 @@
       const slidesContainer = document.querySelector('[data-template="heroSlides"]');
       if (!slidesContainer) return;
 
+      // Optional slide.video (webm/mp4) plays behind the content; slide.image is its poster/fallback.
+      // It is only loaded and played while its slide is active (see playActiveHeroVideo).
+      // Optional slide.delay (ms) overrides the autoplay delay, e.g. to let a video play longer.
+      const heroVideo = slide => {
+        if (!slide.video) return '';
+        const type = /\.mp4(\?|$)/i.test(slide.video) ? 'video/mp4' : 'video/webm';
+        return `<video class="hero-slide-video" muted loop playsinline preload="none"${slide.image ? ` poster="${slide.image}"` : ''} aria-hidden="true">
+              <source src="${slide.video}" type="${type}">
+            </video>`;
+      };
+      const playActiveHeroVideo = swiper => {
+        swiper.slides.forEach((slideEl, idx) => {
+          const video = slideEl.querySelector('.hero-slide-video');
+          if (!video) return;
+          if (idx === swiper.activeIndex) {
+            video.currentTime = 0;
+            const p = video.play();
+            if (p && p.catch) p.catch(() => {}); // autoplay blocked: poster stays visible
+          } else {
+            video.pause();
+          }
+        });
+      };
+
       slidesContainer.innerHTML = slides.map(slide => `
-        <div class="swiper-slide">
-          <div class="hero-slide-bg" style="background-image: url('${slide.image}');" data-overlay="5"></div>
+        <div class="swiper-slide"${slide.delay ? ` data-swiper-autoplay="${slide.delay}"` : ''}>
+          <div class="hero-slide-bg" style="background-image: url('${slide.image}');" data-overlay="5">${heroVideo(slide)}</div>
           <div class="hero-content">
             <span class="sub-title mgc-up">${slide.subtitle}</span>
             <h1 class="title mgc-up" data-delay="100">${slide.title}</h1>
@@ -329,6 +353,18 @@
         const existingSlider = document.querySelector('.hero-slider')?.swiper;
         if (existingSlider) existingSlider.destroy();
 
+        // Browsers pause video-only media in background tabs; resume the active slide's video on return.
+        if (!this._heroVisibilityHooked) {
+          this._heroVisibilityHooked = true;
+          document.addEventListener('visibilitychange', () => {
+            const video = document.querySelector('.hero-slider .swiper-slide-active .hero-slide-video');
+            if (!document.hidden && video && video.paused) {
+              const p = video.play();
+              if (p && p.catch) p.catch(() => {});
+            }
+          });
+        }
+
         new Swiper('.hero-slider', {
           slidesPerView: 1,
           loop: true,
@@ -339,6 +375,10 @@
           navigation: {
             nextEl: '.slider-nav-btn.next, .swiper-button-next',
             prevEl: '.slider-nav-btn.prev, .swiper-button-prev'
+          },
+          on: {
+            init: playActiveHeroVideo,
+            slideChange: playActiveHeroVideo
           }
         });
       }

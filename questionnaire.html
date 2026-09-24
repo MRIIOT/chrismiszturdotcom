@@ -1778,6 +1778,16 @@
           </div>
           <div class="form-row">
             <div class="form-group">
+              <label>Background Video URL (optional, .webm/.mp4)</label>
+              <input type="text" class="form-control" name="heroSlide[${i}][video]" value="${data.video || ''}" placeholder="Image above is used as the poster">
+            </div>
+            <div class="form-group">
+              <label>Slide Duration ms (optional)</label>
+              <input type="number" class="form-control" name="heroSlide[${i}][delay]" value="${data.delay || ''}" placeholder="5000">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
               <label>Subtitle</label>
               <input type="text" class="form-control" name="heroSlide[${i}][subtitle]" value="${data.subtitle || ''}" placeholder="e.g., Your Identity">
             </div>
@@ -2228,7 +2238,7 @@
             border: 'rgba(255, 255, 255, 0.1)'
           }
         },
-        heroSlides: collectRepeaterData('heroSlide', ['image', 'subtitle', 'title', 'description', 'buttonText', 'buttonLink']),
+        heroSlides: collectRepeaterData('heroSlide', ['image', 'subtitle', 'title', 'description', 'buttonText', 'buttonLink', 'video', 'delay']),
         services: collectRepeaterData('service', ['icon', 'title', 'shortDesc', 'fullDesc'], ['features']),
         solutions: collectRepeaterData('solution', ['title', 'description'], ['features']),
         focusAreas: {
